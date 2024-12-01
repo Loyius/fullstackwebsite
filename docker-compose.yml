@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_travel
+    environment:
+      MYSQL_ROOT_PASSWORD: 1901
+      MYSQL_DATABASE: fullstack
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -p1901 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: always
+volumes:
+  mysql_data:
