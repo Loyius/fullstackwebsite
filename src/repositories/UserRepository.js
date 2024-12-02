@@ -1,43 +1,70 @@
-import pool from "../config/database.js";
+import User from "../models/User.js";
 
 //CRUD
 class UserRepository {
     // Lista todos os usuários
     async findAll() {
-        const [rows] = await pool.query("SELECT * FROM users");
-        return rows;
+        try {
+            const users = await User.findAll(); // Retorna todos os registros da tabela `users`
+            return users;
+        } catch (error) {
+            console.error("Erro ao listar usuários:", error);
+            throw error;
+        }
     }
 
     // Busca um usuário pelo ID
     async findById(id) {
-        const [rows] = await pool.query("SELECT * FROM users WHERE id = ?", [id]);
-        return rows[0]; // Retorna apenas o primeiro resultado
+        try {
+            const user = await User.findByPk(id); // Busca um registro pela chave primária (ID)
+            return user;
+        } catch (error) {
+            console.error("Erro ao buscar usuário:", error);
+            throw error;
+        }
     }
 
     // Cria um novo usuário
-    async create(user) {
-        const { name, email, password } = user;
-        const [result] = await pool.query(
-            "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
-            [name, email, password]
-        );
-        return { id: result.insertId, name, email };
+    async create(userData) {
+        try {
+            const user = await User.create(userData); // Cria um novo registro na tabela `users`
+            return user;
+        } catch (error) {
+            console.error("Erro ao criar usuário:", error);
+            throw error;
+        }
     }
 
     // Atualiza um usuário
-    async update(user, id) {
-        const { name, email, password } = user;
-        await pool.query(
-            "UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?",
-            [name, email, password, id]
-        );
-        return { id, name, email };
+    async update(userData, id) {
+        try {
+            const user = await User.findByPk(id); // Verifica se o usuário existe
+            if (!user) {
+                throw new Error("Usuário não encontrado");
+            }
+
+            await user.update(userData); // Atualiza o usuário com os dados recebidos
+            return user;
+        } catch (error) {
+            console.error("Erro ao atualizar usuário:", error);
+            throw error;
+        }
     }
 
     // Deleta um usuário
     async delete(id) {
-        await pool.query("DELETE FROM users WHERE id = ?", [id]);
-        return { message: "Usuário deletado com sucesso" };
+        try {
+            const user = await User.findByPk(id); // Verifica se o usuário existe
+            if (!user) {
+                throw new Error("Usuário não encontrado");
+            }
+
+            await user.destroy(); // Exclui o registro
+            return { message: "Usuário deletado com sucesso" };
+        } catch (error) {
+            console.error("Erro ao deletar usuário:", error);
+            throw error;
+        }
     }
 }
 

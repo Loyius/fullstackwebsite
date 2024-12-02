@@ -1,7 +1,6 @@
 import UserRepository from "../repositories/UserRepository.js";
 
-class UserController {
-    // Lista todos os usuários
+class UserControllers {
     async index(req, res) {
         try {
             const rows = await UserRepository.findAll();
@@ -11,7 +10,6 @@ class UserController {
         }
     }
 
-    // Mostra detalhes de um usuário pelo ID
     async show(req, res) {
         try {
             const { id } = req.params;
@@ -28,24 +26,25 @@ class UserController {
         }
     }
 
-    // Cria um novo usuário
     async store(req, res) {
+        console.log("Dados recebidos no backend:", req.body); // Debug
+
         try {
             const { nome, sobrenome, cpf, idade, genero, email, password } = req.body;
 
-            // Validações simples
-            if (!nome || !sobrenome || !cpf || !idade || !genero || !email || !password) {
-                return res.status(400).json({ error: "Todos os campos são obrigatórios." });
+            if (!nome || !email || !password) {
+                return res.status(400).json({ error: "Campos obrigatórios faltando." });
             }
 
-            const row = await UserRepository.create(req.body);
-            res.status(201).json({ message: "Usuário criado com sucesso.", user: row });
+            const newUser = await UserRepository.create(req.body);
+            res.status(201).json({ message: "Usuário criado com sucesso!", user: newUser });
         } catch (error) {
+            console.error("Erro ao criar usuário:", error);
             res.status(500).json({ error: "Erro ao criar usuário." });
         }
     }
 
-    // Atualiza um usuário existente
+
     async update(req, res) {
         try {
             const { id } = req.params;
@@ -54,10 +53,8 @@ class UserController {
             if (!id) {
                 return res.status(400).json({ error: "ID do usuário é obrigatório." });
             }
-
-            // Validações simples
-            if (!nome || !sobrenome || !cpf || !idade || !genero || !email || !password) {
-                return res.status(400).json({ error: "Todos os campos são obrigatórios." });
+            if (!nome || !email || !password) {
+                return res.status(400).json({ error: "Os campos nome, email e senha são obrigatórios." });
             }
 
             const existingUser = await UserRepository.findById(id);
@@ -72,7 +69,6 @@ class UserController {
         }
     }
 
-    // Deleta um usuário pelo ID
     async delete(req, res) {
         try {
             const { id } = req.params;
@@ -93,5 +89,4 @@ class UserController {
     }
 }
 
-// Padrão Singleton
-export default new UserController();
+export default new UserControllers();

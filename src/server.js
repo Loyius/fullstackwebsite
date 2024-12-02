@@ -1,7 +1,6 @@
 import dotenv from "dotenv"; // Carregar variáveis do .env
 import app from "./app.js"; // Importa o app configurado
 import sequelize from "./config/database.js"; // Conexão com o banco de dados
-import User from "./models/User.js"; // Importa o modelo (se necessário sincronizar)
 
 dotenv.config(); // Carrega as variáveis do .env
 

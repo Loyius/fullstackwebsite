@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import sequelize from "../config/database.js"; // Importação ajustada para ES Modules
+import sequelize from "../config/database.js";
 
 const User = sequelize.define(
     "User",
@@ -14,16 +14,12 @@ const User = sequelize.define(
         sobrenome: {
             type: DataTypes.STRING,
             allowNull: true,
-            validate: {
-                notEmpty: { msg: "O campo sobrenome não pode estar vazio." },
-            },
         },
         cpf: {
             type: DataTypes.STRING,
-            unique: true, // Garante que o CPF seja único
+            unique: true,
             allowNull: true,
             validate: {
-                notEmpty: { msg: "O CPF é obrigatório." },
                 len: { args: [11, 14], msg: "O CPF deve ter entre 11 e 14 caracteres." },
             },
         },
@@ -36,12 +32,12 @@ const User = sequelize.define(
             },
         },
         genero: {
-            type: DataTypes.ENUM("male", "female", "other", "non-binary", "prefer_not_to_say"),
+            type: DataTypes.ENUM("masculino", "feminino", "outro"),
             allowNull: true,
             validate: {
                 isIn: {
-                    args: [["male", "female", "other", "non-binary", "prefer_not_to_say"]],
-                    msg: "O gênero deve ser 'male', 'female', 'other', 'non-binary' ou 'prefer_not_to_say'.",
+                    args: [["masculino", "feminino", "outro"]],
+                    msg: "O gênero deve ser 'masculino', 'feminino' ou 'outro'.",
                 },
             },
         },
@@ -64,9 +60,13 @@ const User = sequelize.define(
         },
     },
     {
-        timestamps: true,
         tableName: "users",
-        paranoid: true, // Ativa exclusão lógica
+        defaultScope: {
+            attributes: { exclude: ["password"] },
+        },
+        scopes: {
+            withPassword: { attributes: {} },
+        },
     }
 );
 

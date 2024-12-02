@@ -1,16 +1,16 @@
 import cors from "cors";
 import express from "express";
-import routes from "./routes/destination.js"; // Certifique-se de que o caminho para o arquivo de rotas está correto
+import routes from "./routes/destination.js";
 
 const app = express();
 
-// Middleware para habilitar CORS (permite requisições de outras origens)
+// Middleware para habilitar CORS ( com isso permite requisições de outras origens)
 app.use(cors());
 
 // Middleware para interpretar requisições com JSON no body
 app.use(express.json());
 
-// Middleware para logar todas as requisições (opcional, útil para debugging)
+// Middleware para logar todas as requisições 
 app.use((req, res, next) => {
     console.log(`[${req.method}] ${req.url}`);
     next();
