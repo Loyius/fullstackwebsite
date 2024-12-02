@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.swiper-container {
+  padding: 0 25px; /* Margem interna nas laterais do carousel */
+  margin-bottom: 50px; /* Espaço abaixo do carousel */
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.rounded-xl {
+  border-radius: 1rem; /* Bordas arredondadas */
+}
+
+.bg-white {
+  background-color: #ffffff; /* Cor de fundo branca */
+}
+
+.p-3 {
+  padding: 0.75rem; /* Padding interno */
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* Sombra leve */
+}
+
+.hover\:shadow-xl:hover {
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.2); /* Sombra maior ao passar o mouse */
+}
+
+.relative {
+  position: relative;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.h-80 {
+  height: 20rem; /* Altura padrão das imagens */
+}
+
+.object-cover {
+  object-fit: cover; /* Imagem ajusta-se sem distorção */
+}
+
+.absolute {
+  position: absolute;
+}
+
+.bottom-3 {
+  bottom: 0.75rem;
+}
+
+.left-3 {
+  left: 0.75rem;
+}
+
+.inline-flex {
+  display: inline-flex;
+  align-items: center;
+}
+
+.bg-[#c1121f]/10 {
+  background-color: rgba(193, 18, 31, 0.1); /* Fundo semitransparente */
+}
+
+.bg-[#c1121f]/20:hover {
+  background-color: rgba(193, 18, 31, 0.2); /* Fundo mais escuro ao passar o mouse */
+}
+
+.text-[#c1121f] {
+  color: #c1121f; /* Cor do texto principal */
+}
+
+.group:hover .group-hover\:text-[#c1121f] {
+  color: #c1121f; /* Cor no hover de grupo */
+}
+
+.p-2 {
+  padding: 0.5rem; /* Padding interno */
+}
+
+.font-bold {
+  font-weight: bold; /* Texto em negrito */
+}
+
+.text-lg {
+  font-size: 1.125rem; /* Texto maior */
+}
+
+.text-slate-700 {
+  color: #374151; /* Texto cinza escuro */
+}
+
+.text-slate-400 {
+  color: #9ca3af; /* Texto cinza claro */
+}
+
+.mt-1 {
+  margin-top: 0.25rem; /* Espaço acima */
+}
+
+.mt-3 {
+  margin-top: 0.75rem; /* Espaço maior acima */
+}
+
+.ml-1 {
+  margin-left: 0.25rem; /* Espaço à esquerda */
+}
+
+.group:hover .group-hover\:text-[#c1121f] {
+  color: #c1121f; /* Cor ao passar o mouse */
+}
+
+.swiper-pagination-bullet {
+    background-color: #780000; /* Cor dos dots */
+    opacity: 1; /* Para evitar transparência */
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #780000; /* Cor dos dots ativos */
+    transform: scale(1.2); /* Destacar o dot ativo */
+}
